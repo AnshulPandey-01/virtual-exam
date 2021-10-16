@@ -1,0 +1,616 @@
+<div class="row productbox py-3 mt-3">
+  <div class="col-12">
+    <div class="content-header mt-0">
+      <h2><i class="ft-chevron-left pr-2 cursor-pointer" (click)="goback()"></i>New Test</h2>
+    </div>
+  </div>
+  <div class="col-12">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="testform1">
+        <form [formGroup]="testform1">
+          <ng-template matStepLabel>Fill out Test Details</ng-template>
+          <div class="ml-5 mt-2">
+            <ul class="list-unstyled">
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group ">
+                      <h6>Title</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="title">
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.title.invalid && (testform1.controls.title.dirty || testform1.controls.title.touched)">Title
+                        is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Password</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="password">
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.password.invalid && (testform1.controls.password.dirty || testform1.controls.password.touched)">User
+                        name is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Type</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <ng-select [items]="subjective" bindLabel="name" bindValue="value" formControlName="isSubjective"
+                        placeholder="Select semester" (change)="resetquestion()"></ng-select>
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.isSubjective.invalid && (testform1.controls.isSubjective.dirty || testform1.controls.isSubjective.touched)">Subjective
+                        is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Duration</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <ng-select [items]="duration" bindLabel="name" bindValue="value" formControlName="duration"
+                        placeholder="Select semester"></ng-select>
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.duration.invalid && (testform1.controls.duration.dirty || testform1.controls.duration.touched)">Duration
+                        is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Scheduled Date</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="scheduleOn" [matDatepicker]="picker"
+                        [min]="minDate" (click)="picker.open()">
+                      <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.scheduleOn.invalid && (testform1.controls.scheduleOn.dirty || testform1.controls.scheduleOn.touched)">Schedule
+                        Date is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Scheduled Time</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="time1" (click)="setTime()"
+                        (input)="remove()">
+                    </div>
+
+                    <div class="form-group" *ngIf="showtime">
+                      <ngb-timepicker [(ngModel)]="time" [ngModelOptions]="{standalone: true}" (click)="timer($event)"
+                        (mouseleave)="hide()">
+                      </ngb-timepicker>
+                    </div>
+
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.time1.invalid && (testform1.controls. time1.dirty || testform1.controls. time1.touched)">Scheduled
+                        Time is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                *ngIf="testform1.controls.duration.value!='' && testform1.controls.scheduleOn.value!='' && testform1.controls.time1.value!=''">
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Result Date</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="resultOn" [matDatepicker]="picker1"
+                        [min]="testform1.controls.scheduleOn.value" (click)="picker1.open()">
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.resultOn.invalid && (testform1.controls.resultOn.dirty || testform1.controls.resultOn.touched)">Result
+                        Date is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li
+                *ngIf="testform1.controls.duration.value!='' && testform1.controls.scheduleOn.value!='' && testform1.controls.time1.value!=''">
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Result Time</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="time2" (click)="setTime1()"
+                        (input)="remove1()">
+                    </div>
+                    <div class="form-group" *ngIf="showtime1">
+                      <ngb-timepicker [(ngModel)]="time1" [ngModelOptions]="{standalone: true}" (click)="timer1($event)"
+                        (mouseleave)="hide1()">
+                      </ngb-timepicker>
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls. time2.invalid && (testform1.controls. time2.dirty || testform1.controls. time2.touched)">Scheduled
+                        Time is required</span>
+                    </div>
+
+                    <div class="form-group w-75" *ngIf="tvalidation">
+                      <span class="text-danger">Valid result time is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Subject Code</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="subjectCode">
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.subjectCode.invalid && (testform1.controls.subjectCode.dirty || testform1.controls.subjectCode.touched)">Subject
+                        code is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Branch</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <ng-select [items]="branch" bindLabel="name" bindValue="value" formControlName="branch"
+                        placeholder="Select branch"></ng-select>
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.branch.invalid && (testform1.controls.branch.dirty || testform1.controls.branch.touched)">Branch
+                        is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Semester</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <ng-select [items]="sem" bindLabel="name" bindValue="value" formControlName="sem"
+                        placeholder="Select semester"></ng-select>
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.sem.invalid && (testform1.controls.sem.dirty || testform1.controls.sem.touched)">Semester
+                        is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Section</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" class="form-control" formControlName="section">
+                    </div>
+                    <div class="form-group w-75">
+                      <span class="text-danger"
+                        *ngIf="testform1.controls.section.invalid && (testform1.controls.section.dirty || testform1.controls.section.touched)">Section
+                        is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="this.testform1.get('isSubjective').value=='false'">
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Marks Per Questions</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" maxlength="2" class="form-control" formControlName="marks"
+                        (input)="digit($event)">
+                    </div>
+                    <div class="form-group"
+                      *ngIf="testform1.controls.marks.invalid && (testform1.controls.marks.dirty || testform1.controls.marks.touched)">
+                      <span class="text-danger">Marks is required</span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li *ngIf="this.testform1.get('isSubjective').value=='false'">
+                <div class="row">
+                  <div class="col-2">
+                    <div class="form-group">
+                      <h6>Nagative Marks</h6>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="form-group w-75">
+                      <input type="text" maxlength="1" class="form-control" formControlName="negativeMarks"
+                        (input)="digit($event)">
+                    </div>
+
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="ml-3 text-right">
+            <button type="button" class="btn btn-outline-primary" (click)="submit(stepper)">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="questionForm" label="Create Your Test Question">
+        <form [formGroup]="questionForm" class="mt-3">
+          <div class="d-flex justify-content-end mb-2">
+            <div class="text-right mb-2">
+              <a href="assets/excel/Theory_Test.xlsx"
+                *ngIf="this.testform1.get('isSubjective').value=='true'" download="theory.xlsx"><u>Sample
+                  Excel</u></a>
+              <a *ngIf="this.testform1.get('isSubjective').value=='false'" href="assets/excel/MCQ.xlsx"
+                download="MCQ.xlsx"><u>Sample Excel</u></a>
+            </div>
+            <div class="text-right ml-2" *ngIf="this.buttontype">
+              <input type="file" accept=".xls,.xlsx" class="d-none" #file1 (change)="selectFile($event)">
+              <!---->
+              <button type="button" class="btn btn-outline-primary" (click)="file1.click()">
+                <div class="d-flex">
+                  <div>Upload Excel</div>
+                  <div>
+                    <mat-spinner [diameter]="20" class="ml-1 d-inline-block custom-spinner" *ngIf="loader3">
+                    </mat-spinner>
+                  </div>
+                </div>
+              </button>
+            </div>
+
+            <div class="text-right ml-2" *ngIf="!this.buttontype">
+              <button type="button" class="btn btn-outline-primary" (click)="resetquestion();this.buttontype=true;this.total_question=0;this.total_mark=0;">
+                Reset
+              </button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <div class="text-right mb-2">
+              <button type="button" class="btn btn-outline-primary" (click)="addQuestion()">Add Question</button>
+            </div>
+          </div>
+
+
+          <div formArrayName="question">
+            <div *ngFor="let i of questionForm.get('question')['controls']; let j=index">
+
+              <div [formGroupName]="j" class="my-2 p-3" style="border:1px solid #975AFF;border-radius: 5px;"
+                *ngIf="this.testform1.get('isSubjective').value=='true'">
+                <div class="form-group">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h6>Question -{{j+1}}</h6>
+                    </div>
+                    <div class="text-right pr-2">
+                      <i class="fa fa-trash-o text-danger font-large-1 cp ml-2" (click)="removequestion(j)"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <textarea formControlName="question" class="form-control"></textarea>
+                </div>
+                <div class="form-group"
+                  *ngIf="questionForm.get('question').controls[j].controls.question.invalid && (questionForm.get('question').controls[j].controls.question.dirty || questionForm.get('question').controls[j].controls.question.touched)">
+                  <span class="text-danger">Question is required</span>
+
+                </div>
+                <div class="form-group">
+                  <h6>Mark</h6>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" type="text" formControlName="marks" style="width: 100px;"
+                    (input)="digit($event)">
+                </div>
+                <div class="form-group"
+                  *ngIf="questionForm.get('question').controls[j].controls.marks.invalid && (questionForm.get('question').controls[j].controls.marks.dirty || questionForm.get('question').controls[j].controls.marks.touched)">
+                  <span class="text-danger">Mark is required</span>
+                </div>
+              </div>
+
+              <div [formGroupName]="j" class="my-2 p-3" style="border:1px solid #975AFF;border-radius: 5px;"
+                *ngIf="this.testform1.get('isSubjective').value=='false'">
+                <div class="form-group">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h6>Question -{{j+1}}</h6>
+                    </div>
+                    <div class="text-right pr-2">
+                      <i class="fa fa-trash-o text-danger font-large-1 cp ml-2" (click)="removequestion(j)"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <textarea formControlName="text" class="form-control"></textarea>
+                </div>
+                <div class="form-group"
+                  *ngIf="questionForm.get('question').controls[j].controls.text.invalid && (questionForm.get('question').controls[j].controls.text.dirty || questionForm.get('question').controls[j].controls.text.touched)">
+                  <span class="text-danger">Question is required</span>
+                </div>
+                <div class="form-group">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <h6 class="mb-0 pt-2">Options</h6>
+                    </div>
+                    <div class="text-right pr-2">
+                      <button type="button" class="btn btn-outline-primary" (click)="addOption(j)"
+                        *ngIf="questionForm.get('question').controls[j].controls.option.controls.length < 4">Add
+                        Option</button>
+                    </div>
+                  </div>
+                </div>
+                <div formArrayName="option">
+                  <div class="form-group"
+                    *ngFor="let k of questionForm.get('question').controls[j].get('option')['controls']; let m=index">
+                    <div class="row" [formGroupName]="m">
+                      <div class="col-1">
+                        <div class="form-group text-center">
+                          <span>{{m+1}})</span>
+                        </div>
+                      </div>
+                      <div class="col-9">
+                        <div class="form-group">
+
+                          <textarea class="form-control" rows="1" formControlName="optionq"></textarea>
+                        </div>
+                        <div class="form-group"
+                          *ngIf="questionForm.get('question').controls[j].controls.option.controls[m].controls.optionq.invalid && (questionForm.get('question').controls[j].controls.option.controls[m].controls.optionq.dirty || questionForm.get('question').controls[j].controls.option.controls[m].controls.optionq.touched)">
+                          <span class="text-danger">Option is required</span>
+                        </div>
+                      </div>
+                      <div class="col-2"
+                        *ngIf="questionForm.get('question').controls[j].controls.option.controls.length>2">
+                        <i class="fa fa-trash-o text-danger font-large-1 cp ml-2" (click)="removeoption(j,m)"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <h6>Correct Option</h6>
+                </div>
+                <div class="form-group w-50">
+                  <select class="form-control" formControlName="correctOption">
+                    <option selected hidden>select correct Option</option>
+                    <option
+                      *ngFor="let i of questionForm.get('question').controls[j].get('option')['controls'];let kk=index;"
+                      value="{{kk+1}}">{{kk+1}}</option>
+                  </select>
+                </div>
+                <div class="form-group"
+                  *ngIf="questionForm.get('question').controls[j].controls.correctOption.invalid && (questionForm.get('question').controls[j].controls.correctOption.dirty || questionForm.get('question').controls[j].controls.correctOption.touched)">
+                  <span class="text-danger">Correct Option is required</span>
+                </div>
+
+                <!--- <div class="form-group">
+                 <h6>Mark</h6>
+               </div>
+                <div class="form-group">
+                  <input class="form-control" type="text" formControlName="mark" style="width: 100px;" (input)="digit($event)">
+                </div>
+                <div class="form-group" *ngIf="questionForm.get('question').controls[j].controls.mark.invalid && (questionForm.get('question').controls[j].controls.mark.dirty || questionForm.get('question').controls[j].controls.mark.touched)">
+                 <span class="text-danger">Mark is required</span>
+                </div>
+              -->
+              </div>
+
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <button type="button" class="btn btn-outline-primary" matStepperPrevious>Back</button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline-primary" matStepperNext (click)="submit2()">Next</button>
+            </div>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <div class="row d-flex justify-content-center  mt-3">
+          <div class="col-lg-5 col-6 px-0 shadow" style="border:1px solid #975AFF;border-radius: 5px;">
+            <div class="bg-primary">
+              <h4 class="text-white p-2">Your Test</h4>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>Title</h6>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>{{this.testform1.get('title').value}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>Type</h6>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>{{this.testform1.get('isSubjective').value == 'true' ? 'Subjective':'MCQ'}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>Duration</h6>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>{{this.testform1.get('duration').value+" Minute"}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>schedule Date</h6>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="form-group">
+                  <h6>{{this.testform1.get('scheduleOn').value|date:'fullDate'}}{{"
+                    "+this.testform1.get('time1').value}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>Result Date</h6>
+                </div>
+              </div>
+              <div class="col-7">
+                <div class="form-group">
+                  <h6>{{this.testform1.get('resultOn').value|date:'fullDate'}}{{" "+this.testform1.get('time2').value}}
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>Total Question</h6>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>{{total_question}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>Total Marks</h6>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>{{total_mark}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="row pl-4">
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>Negative Marks</h6>
+                </div>
+              </div>
+              <div class="col-5">
+                <div class="form-group">
+                  <h6>{{this.testform1.get('negativeMarks').value==''?'0' :this.testform1.get('negativeMarks').value}}
+                  </h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-12">
+                <div class="text-center">
+                  <button type="button" class="btn btn-outline-primary" (click)="submit1()">Create Test
+                    <mat-spinner [diameter]="20" class="ml-1 d-inline-block custom-spinner" *ngIf="loader4">
+                    </mat-spinner>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  <div class="d-flex justify-content-between">
+           <div>
+            <button type="button" class="btn btn-outline-primary" matStepperPrevious>Back</button>
+           </div>
+           <div>
+            <button type="button" class="btn btn-outline-primary"  >Submit</button>
+           </div>
+          </div>
+        -->
+      </mat-step>
+
+    </mat-horizontal-stepper>
+  </div>
+</div>

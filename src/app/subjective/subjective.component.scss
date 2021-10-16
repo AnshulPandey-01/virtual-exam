@@ -1,0 +1,49 @@
+.mcq_q{
+    max-height:287.500px;
+    min-width: 145px;
+    overflow: auto;
+}
+.mc_container{
+    max-width:287.500px!important;
+}
+.mcq_q::-webkit-scrollbar {
+    width:7px !important;
+ }
+ 
+ /* Track */
+ .mcq_q::-webkit-scrollbar-track {
+   background: #fff!important; 
+ }
+  
+ /* Handle */
+ .mcq_q::-webkit-scrollbar-thumb {
+  
+   border-radius:40px;
+   background: 	#DCDCDC!important;
+ }
+ .show{
+     display:block; 
+ }
+ .hide{
+     display:none;
+ }
+ .increase{
+  width:40px!important;
+  height:40px!important;
+  font-size: 1.4rem;
+  margin-top: 8px!important;
+  margin-bottom: 8px !important;
+  font-weight: bold;
+  //background-color: #782dfa!important;
+ }
+  
+ .btn_mark{
+    border-radius: 50%;
+    height: 45px;
+    width: 50px;
+ }
+ .setcolor{
+   background-color: #F55252;
+ }
+
+

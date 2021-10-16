@@ -1,0 +1,47 @@
+<div class="row productbox py-3 mt-3" >
+    <div class="col-12">
+        <div class="content-header mt-0">
+          <h2>Upcoming Test</h2>
+        </div>
+    </div>  
+      <div class="col-12 mt-3">
+        <div  class="my-3 shadow" style="border:1px solid #975AFF; border-radius: 5px; border-top: none;" *ngFor="let i of upcoming_test">
+          <div class="row mb-2 mx-0 bg-primary " >
+            <div class="col-8 p-2">
+              <h4 class="text-white">{{i.title}}</h4>
+            </div>
+            <div class="col-4 p-2">
+             <div class="text-right"><button type="button" class="btn shadow" style="background-color: #f0b518;color: white;" (click)="start(i.testId, i.duration)">Start</button></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 col-lg-3 pl-4"><h6>Subject Code</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.subjectCode}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Type</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.isSubjective}}</h6></div>
+          </div>
+          <div class="row">
+            <div class="col-6 col-lg-3 pl-4"><h6>schedule Date</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.scheduleOn}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Total Question</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.noOfQuestions}}</h6></div>
+          </div>
+          <div class="row">
+            <div class="col-6 col-lg-3 pl-4"><h6>Result Date</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.resultOn}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Total Marks</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.totalMarks}}</h6></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6 col-lg-3 pl-4"><h6>Duration</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.duration}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Negative Marks</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{i.negativeMarks}}</h6></div>
+          </div>
+         </div>
+      </div> 
+    </div>
+
+
+
+    

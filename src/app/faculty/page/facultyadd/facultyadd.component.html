@@ -1,0 +1,186 @@
+
+<div class="row productbox mt-3 py-3" >
+    <div class="col-6">
+        <div class="content-header mt-0">
+          <h2><i class="ft-chevron-left pr-2 cursor-pointer"  (click)="goback()"></i>New Faculty</h2>
+        </div>
+      </div>
+  <div class="col-6 px-2">
+    
+    <div class="text-right" *ngIf="this.buttontype">
+        <a href="assets/excel/faculties.xlsx" download="faculty.xlsx" target="_self"><u>Sample Excel</u></a>
+        <input type="file" accept=".xls,.xlsx"  class="d-none" #file1  (change)="selectFile($event)">
+            <button type="button" class="btn btn-outline-primary ml-2" (click)="file1.click()">
+                <div class="d-flex">
+                    <div>Upload Excel</div>
+                    <div><mat-spinner [diameter]="20"  class="ml-1 d-inline-block custom-spinner" *ngIf="loader3"></mat-spinner></div>
+                </div> </button>
+    </div>
+
+    <div class="text-right" *ngIf="!this.buttontype">
+            <button type="button" class="btn btn-outline-primary" (click)="this.buttontype=true">
+                    Create Manually
+            </button>
+    </div>
+   
+  </div>
+  <div class="col-12" *ngIf="this.buttontype">
+    <div class="mt-3 ml-5">
+        <form [formGroup]="facultyForm">  <div>
+                <ul class=" list-unstyled">
+                        <li>
+                            <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>User Name</label>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group w-75">
+                                    <input type="text" class="form-control" formControlName="name">
+                                </div>
+                                <div class="form-group w-75">
+                                  <span class="text-danger" *ngIf="facultyForm.controls.name.invalid && (facultyForm.controls.name.dirty || facultyForm.controls.name.touched)">User name is required</span>
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                       <!--- <li>
+                            <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>Image</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group w-75 d-inline-block">  
+                                    <input type="text" class="form-control" formControlName="blog_img">
+                                </div>
+                                <div class="form-group w-25 d-inline-block text-center">
+                                    <input type="file" accept="image/*"  class="d-none" #file  (change)="selectFile($event)">
+                                    <i class="fa fa-upload font-medium-3" aria-hidden="true" (click)="file.click()"></i>
+                                </div>
+                                <div class="form-group w-75 d-inline-block">
+                                    <span class="text-danger" *ngIf="facultyForm.controls.blog_img.invalid && (facultyForm.controls.blog_img.dirty || facultyForm.controls.blog_img.touched)">Image Preview is required</span>
+                                </div>
+                                <div class="form-group">
+                                        <div  *ngIf="img">
+                                            <img class="img-fluid" src="{{img}}" style="width:80px;height:80px">
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                        </li>
+                    -->
+                        <li>
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label> Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group w-75"> 
+                                        
+                                        <input type="text" class="form-control" formControlName="email" placeholder="xyz@gmail.com">
+                                    </div>
+                                    <div class="form-group w-75">
+                                        <span class="text-danger" *ngIf="facultyForm.controls.email.value=='' && (facultyForm.controls.email.dirty || facultyForm.controls.email.touched)">Email is required</span>
+                                    </div>
+                                    <div class="form-group w-75">
+                                        <span class="text-danger" *ngIf="facultyForm.controls.email.hasError('pattern')">Invaild email  address</span>
+                                    </div>
+                                </div>
+                             </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group w-75">
+                                        <input type="text" class="form-control" formControlName="password">
+                                    </div>
+                                    <div class="form-group w-75">
+                                        <span class="text-danger" *ngIf="facultyForm.controls.password.value=='' && (facultyForm.controls.password.dirty || facultyForm.controls.password.touched)"> Password is required</span>
+                                    </div>
+                                    <div class="form-group w-75">
+                                        <span class="text-danger" *ngIf="facultyForm.controls.password.hasError('minlength')">Password is too short</span>
+                                    </div>
+                                    <div class="form-group w-75">
+                                        <span class="text-danger" *ngIf="facultyForm.controls.password.hasError('maxlength')">Password is too long</span>
+                                    </div>
+                                </div>
+                             </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="text-center mt-3 ">
+                                        <button type="button" class="btn btn-outline-primary " (click)="submit()">Save</button>
+                                        <button type="button" class="btn btn-outline-primary ml-5" (click)="goback()">Cancel</button>
+                                       </div>  
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            
+           
+        </form>
+       
+        
+       </div>
+     </div>
+     
+     <div class="col-12" *ngIf="!this.buttontype">
+            <div class="mat-elevation-z8  mt-3 ml-2" >
+                <table mat-table [dataSource]="dataSource" class="w-100" matSort>
+                  <ng-container matColumnDef="s_no">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> S. No.</th>
+                    <td mat-cell *matCellDef="let element;let i=index;"> 
+                       {{i+1}}
+                       </td>
+                  </ng-container>
+                  
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="faculty_name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Faculty Name</th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                  </ng-container>
+              
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="faculty_email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Faculty Email</th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                  </ng-container>
+                  
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef>Password</th>
+                    <td mat-cell *matCellDef="let element">
+                    {{element.password}}  
+                    </ng-container>
+               
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </div>
+         <div class="my-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-center mt-3 ">
+                        <button type="button" class="btn btn-outline-primary " (click)="submitcsv()">Save</button>
+                        <button type="button" class="btn btn-outline-primary ml-5" (click)="goback()">Cancel</button>
+                       </div>  
+                </div>
+            </div>
+         </div>
+        </div>
+
+    </div>
+      
+  

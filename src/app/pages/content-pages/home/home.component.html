@@ -1,0 +1,180 @@
+<div class="bg-primary shadow">
+      <div class="p-3">
+        <h5 class="d-inline-block text-white">Exam Portal</h5>
+    </div>
+
+    
+</div>
+
+
+
+
+<section>
+   <!--- <div class="position-relative">
+        <img src="../../assets/img/banner/minitbanner.jpg" class="img-fluid">
+    </div>
+-->
+    <div class="row auth-height m-0" style="height: 600px;">
+       
+      <div class="col-12 my-auto">
+        <div class="row  justify-content-center">
+          <div class="col-md-6 col-sm-10 col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <ngb-tabset justify="fill" type="pills">
+            <ngb-tab >
+              <ng-template ngbTabTitle ><b> <i class="fa fa-user pr-1"></i>Faculty Login</b></ng-template>
+              <ng-template ngbTabContent>
+                <div class="card overflow-hidden">
+                  <div class="card-content">
+                    <div class="card-body auth-img">
+                      <div class="row m-0">
+                        <div class="col-12 card pb-3">
+                         
+                          
+                          <form class="px-3 pt-2" [formGroup]="loginForm">
+                            <div>
+                           <div class="form-group">
+                             <label>Email</label>
+                           </div>
+                           <div class="form-group">
+                             <input type="text" class="form-control" formControlName="email">
+                           </div>
+                           
+                           <div class="help-block mt-1 text-danger" *ngIf="isControlHasError('email', 'email')">
+                             <span>
+                               Email is not vaild.
+                             </span>
+                               </div>
+                            
+                             
+                          </div>
+                          <div class="pt-2">
+                           <div class="form-group">
+                             <label>Password</label>
+                           </div>
+                           <div class="form-group">
+                             <input type="password" class="form-control" formControlName="password">
+                           </div>
+                           <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.touched || loginForm.controls.password.dirty)" class="help-block mt-1 text-danger"> 
+                            <span><i class="ft-alert-circle align-middle"></i> Password is required
+                             </span>
+                           </div>
+                         <div  class="help-block mt-1 text-danger" *ngIf="isControlHasError('password', 'minlength')">
+                             <span>
+                                length of Password is minimum. 
+                             </span>
+                           </div>    
+                          <div class="help-block mt-1 text-danger" *ngIf="isControlHasError('password', 'maxlength')">
+                           length of Password is maximum.
+                          </div>  
+                        
+                          </div>
+                          <div class="text-center pt-2">
+                            <div><button class="btn btn-primary" (click)="onSubmit1('Faculty')">Submit</button>
+                              <ngx-spinner></ngx-spinner>
+                            </div>
+                          <!--  <div class="mt-1">
+                              <span><a href="javascript:void(0);" [routerLink]="['/pages/forgotpassword']">Forget Password</a></span>
+                            </div>
+                          -->
+                          </div>
+                          </form>
+                         </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle ><b> <i class="fa fa-user pr-1"></i>Student Login</b></ng-template>
+              <ng-template ngbTabContent>
+                <div class="card overflow-hidden">
+                  <div class="card-content">
+                    <div class="card-body auth-img">
+                      <div class="row m-0">
+                        <div class="col-12 card pb-3">
+                          
+                          
+                          <form class="px-3 pt-2" [formGroup]="loginForm">
+                            <div>
+                           <div class="form-group">
+                             <label>Email</label>
+                           </div>
+                           <div class="form-group">
+                             <input type="text" class="form-control" formControlName="email">
+                           </div>
+                           <div  class="help-block mt-1 text-danger" *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.touched || loginForm.controls.email.dirty)"> 
+                             <span><i class="ft-alert-circle align-middle"></i> Email is required
+                              </span>
+                            </div>
+                           <div class="help-block mt-1 text-danger" *ngIf="isControlHasError('email', 'email')">
+                             <span>
+                               Email is not vaild.
+                             </span>
+                               </div>
+                           <div  class="help-block mt-1 text-danger" *ngIf="isControlHasError('email', 'minlength')">
+                              <span>
+                                 length of Email is minimum. 
+                              </span>
+                            </div>    
+                           <div class="help-block mt-1 text-danger" *ngIf="isControlHasError('email', 'maxlength')">
+                            length of Email is maximum.
+                           </div>
+                             
+                          </div>
+                          <div class="pt-2">
+                           <div class="form-group">
+                             <label>Password</label>
+                           </div>
+                           <div class="form-group">
+                             <input type="password" class="form-control" formControlName="password">
+                           </div>
+                           <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.touched || loginForm.controls.password.dirty)" class="help-block mt-1 text-danger"> 
+                            <span><i class="ft-alert-circle align-middle"></i> Password is required
+                             </span>
+                           </div>
+                         <div  class="help-block mt-1 text-danger" *ngIf="isControlHasError('password', 'minlength')">
+                             <span>
+                                length of Password is minimum. 
+                             </span>
+                           </div>    
+                          <div class="help-block mt-1 text-danger" *ngIf="isControlHasError('password', 'maxlength')">
+                           length of Password is maximum.
+                          </div>  
+                        
+                          </div>
+                          <div class="text-center pt-2">
+                            <div><button class="btn btn-primary" (click)="onSubmit1('Student')">Submit</button>
+                              <ngx-spinner></ngx-spinner>
+                            </div>
+                          <!--  <div class="mt-1">
+                              <span><a href="javascript:void(0);" [routerLink]="['/pages/forgotpassword']">Forget Password</a></span>
+                            </div>
+                          -->
+                          </div>
+                          </form>
+                         </div>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+           
+          </ngb-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Tabset Ends-->    
+
+        </div>
+       
+      </div>
+    </div>
+    </section>

@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center align-items-center" style="height: 500px;">
+ <div style="width: 65%;">
+     <div class="text-center">
+        <h1 style="font-size: 60px;color:#808080;">Search Student</h1>
+     </div>
+     <div>
+        <fieldset class="form-group position-relative ">
+            <i class="ft-search font-medium-3 search_icon position-absolute"></i>
+            <input type="text" id="roundText" class="form-control round padding" placeholder="Enter Roll Number" formControlName="searchCustomer" #search>
+            <button class="bg-primary btn text-white position-absolute" style="right: -10px;top: 0px; border-radius: 1.5rem;" (click)="submit(search)">search</button>
+          </fieldset>
+     </div>
+     <div class="text-center">
+       <span>View student past tests performance</span>
+     </div>
+ </div>
+</div>

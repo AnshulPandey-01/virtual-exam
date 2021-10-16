@@ -1,0 +1,78 @@
+<div  >
+    <div class="row mx-0 d-flex justify-content-between p-2" style="background-color: #ECF0F1;">
+      <div></div>
+  
+      <div>
+        <button class="btn btn-primary">
+          <countdown #cd  (event)="handleEvent($event)"></countdown>  
+        </button>
+        
+      </div>
+      <div>
+        <button class="btn" style="background-color: #F8F9F9;">Reference</button>
+        <button class="btn btn-danger mx-3" (click)="submit()">Finish</button>
+      </div>
+    </div>
+  
+      <div class="row mx-3" >
+        <div class="col-12">
+          <div class="d-flex">
+            <div class=" rounded mc_container">
+              <div style="box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 15%) !important;height:650px;width: 220px;" class=" mt-2 bg-white">
+              <div class=" text-center" style="color: black;border-bottom:1px solid rgb(225,225,225);">
+               <span class="py-2 text-dark mb-0 d-block">Questions</span>
+              </div>
+              <div class="d-flex flex-wrap px-2 mcq_q" >
+                
+
+                  <div style="width: 35px;height:35px;border-radius: 50%;text-align: center;align-items: center;cursor:pointer;" class="setcolor text-white m-2" *ngFor="let i of this.subjective.controls;let j=index;"    [ngClass]="{'bg-primary':this.subjective.controls[j].controls.visit.value==true && this.subjective.controls[j].controls.answer.value!=null && this.subjective.controls[j].controls.answer.value!=''}"  [class.bgcolor]="this.subjective.controls[j].controls.show.value == true && this.subjective.controls[j].controls.answer.value==null"  [class.increase]="this.subjective.controls[j].controls.show.value == true" (click)="setquestion(j)">
+
+                    <div style="padding:6px;">
+                        <span>{{j+1}}</span>
+                    </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+          <div style="width: 100%;" class="pl-3" >
+            <div *ngFor="let i of subjective.controls; index as j;">
+            <div [formGroup]="i" class="bg-white rounded mt-2 pb-2 question-mcq" style="box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 15%) !important;height:650px;overflow:auto;position:relative;" [ngClass]="subjective.controls[j].controls.show.value?'show':'hide'" >
+              
+                <div class="text-center">
+                <h4 class="text-dark  py-2">Question {{j+1}}</h4>
+              </div>
+              <div class="mt-2 pl-4 pr-5" style="position: relative;">
+                  <h5 class="text-dark"  style="line-height: 1.4;">
+                    {{subjective.controls[j].controls.question.value}}
+                  </h5>
+                  <div class="d-inline-block" style="position: absolute;right: 8px;top: -5px;">
+                      <button class="btn btn-danger btn_mark">{{subjective.controls[j].controls.marks.value}}</button>
+                  </div>
+              </div>
+              <div class="my-3 mx-2 pl-4 pr-5">
+                <div class="form-group">
+                   <textarea formControlName="answer" class="form-control" style="min-height: 300px;color: black;" (input)="setAnswer(j)"></textarea>
+                 </div>
+              </div>
+  
+              <div class="mt-3 d-flex justify-content-between">
+                  <div class="px-2">
+                    <button class="btn btn-primary" [disabled]="j==0" (click)="prev(j)">Pre</button>
+                  </div>
+                  <div class="px-2" [hidden]="j==subjective.value.length-1">
+                    <button class="btn btn-primary" (click)="next(j)">Next</button>
+                  </div>
+               
+              </div>
+            </div>
+            </div>
+        </div>
+          </div>
+  
+          
+  
+        </div>
+          
+          
+      </div>
+  </div>

@@ -1,0 +1,95 @@
+<div class="row productbox py-3 mt-3" >
+    <div class="col-12">
+        <div class="content-header mt-0">
+          <h2><i class="ft-chevron-left pr-2 cursor-pointer"  (click)="goback()"></i>Test Result</h2>
+        </div>
+    </div>
+    <div class="col-12 py-3 px-4">
+        <div>
+            <div class="content-header mt-0 mb-1">
+                <h4>Absent</h4>
+              </div>
+              <div class="mat-elevation-z8 mt-2">
+                <table mat-table [dataSource]="dataSource" class="w-100" matSort>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="s_no">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> S. No.</th>
+                      <td mat-cell *matCellDef="let element;let i=index;"> 
+                         {{i+1}}
+                         </td>
+                    </ng-container>
+                    
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+          
+                    <ng-container matColumnDef="rollNo">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Roll No.</th>
+                      <td mat-cell *matCellDef="let element"> {{element.rollNo}} </td>
+                    </ng-container>
+                
+                    <!-- Weight Column -->
+                   <!--- <ng-container matColumnDef="score">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Mark</th>
+                      <td mat-cell *matCellDef="let element">0</td>
+                    </ng-container>
+                  --> 
+                    <!-- Symbol Column -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+            </div>
+        </div>
+        
+          
+    </div>
+    <div class="col-12 mt-3 py-3 px-4">
+        <div class="content-header mt-0 mb-1 ">
+            <h4>Present</h4>
+          </div>
+          <div class="mat-elevation-z8 mt-2">
+            <table mat-table [dataSource]="dataSource1" class="w-100" matSort>
+                <!-- Position Column -->
+                <ng-container matColumnDef="s_no">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> S. No.</th>
+                  <td mat-cell *matCellDef="let element;let i=index;"> 
+                     {{i+1}}
+                     </td>
+                </ng-container>
+                
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+      
+                <ng-container matColumnDef="rollNo">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Roll No.</th>
+                  <td mat-cell *matCellDef="let element"> {{element.rollNo}} </td>
+                </ng-container>
+            
+                <!-- Weight Column -->
+                <ng-container matColumnDef="score">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Mark</th>
+                  <td mat-cell *matCellDef="let element"><span *ngIf="element.score==-1" class="text-danger">Not Assign</span> 
+                    <span *ngIf="element.score!=-1" >{{element.score}}</span> </td>
+                </ng-container> 
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef>Action</th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <div id="view">
+                      <button  type="button"  class="btn btn-outline-primary" (click)="view(element.rollNo)">View</button>
+                    </div>
+                  </td>
+                </ng-container>
+             
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+              </table>
+        </div>
+    </div>
+
+    </div>

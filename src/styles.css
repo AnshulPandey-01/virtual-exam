@@ -1,0 +1,143 @@
+
+/* You can add global styles to this file, and also import other style files */
+.ais-SearchBox { margin-bottom: 1em }
+.ais-Pagination { margin-top: 1em }
+.left-panel { float: left; width: 250px }
+.right-panel { margin-left: 260px }
+.ais-InstantSearch { max-width: 960px; overflow: hidden; margin: 0 auto }
+.ais-Hits-item { margin-bottom: 1em; width: calc(50% - 1rem) }
+.ais-Hits-item img { margin-right: 1em }
+.hit-name { margin-bottom: .5em }
+.hit-description { color: #888; font-size: 14px; margin-bottom: .5em }
+
+.cp{
+    cursor: pointer;
+}
+.borders{
+    border:1px solid rgb(151, 90, 255);
+    border-radius: 0.35rem;
+}
+.hide{
+    display:block;
+    transition: 3s ease-in-out;
+}
+.fade{
+    display:none;
+    transition: 3s ease-in-out;
+}
+.productbox{
+    box-shadow: -8px 8px 14px 0 rgba(25, 42, 70, 0.11);
+    background-color: #fff;
+    border-radius: 0.35rem;
+    border: 0 solid rgba(0, 0, 0, 0.125);
+}
+.card-body{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.label_width{
+    width:130px;
+    overflow: hidden;
+}
+.form-group{
+    padding-bottom: 0px!important;
+    margin-bottom:10px!important;
+}
+.search_icon{
+    position: absolute;
+    top:8px;
+    left:8px;
+    color:#ccc;
+}
+.padding{
+    padding-left: 30px!important;
+}
+.accordion >.card{
+    background-color: white!important;
+    padding:10px;
+    padding-right: 16px;
+}
+.accordion > .card:not(:first-of-type){
+    box-shadow: none;
+    border-bottom: 1px;
+}
+
+.accordion > .card:not(:first-of-type) .card-header{
+     border-bottom: 1px solid #E0E0E0;
+}
+.card-body{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.dropdown_position{
+    position: relative;
+    right:10px;
+    max-height: 350px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+.dropdown_menu{
+    position:absolute;
+    right: 0px;
+    width:550px;
+    z-index: 100;
+}
+
+.whiteform{
+    background-color:white;
+}
+.datatable-header-inner{
+   width: inherit!important;
+}
+.datatable-scroll{
+  width: inherit!important;
+}
+.grid-container{
+    display: grid;
+    margin-left: 18px;
+    grid-template-columns:200px 200px ;
+    grid-gap: 24px;
+}
+form label, .form-group label{
+    text-transform: none;
+}
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}
+.modal-body {
+    background-color: #FDFEFE;
+}
+/* width */
+.dropdown_position::-webkit-scrollbar {
+    width:7px !important;
+ }
+ 
+ /* Track */
+ .dropdown_position::-webkit-scrollbar-track {
+   background: #fff!important; 
+ }
+  
+ /* Handle */
+ .dropdown_position::-webkit-scrollbar-thumb {
+  
+   border-radius:40px;
+   background: 	#DCDCDC!important;
+ }
+ 
+ /* Handle on hover */
+ .dropdown_position::-webkit-scrollbar-thumb:hover {
+    background-color: #975AFF !important;
+    background-image: linear-gradient(326deg, #a4508b 0%, #975AFF 74%)!important;
+}
+.daycolor{
+    background-color: #8d4bff  !important;
+    color: white  !important;
+}
+
+
+.custom-spinner circle{   
+    stroke: #975AFF!important; 
+  }

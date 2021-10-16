@@ -1,0 +1,126 @@
+<div class="row productbox py-3 mt-3" >
+    <div class="col-12">
+        <div class="content-header mt-0">
+          <h2><i class="ft-chevron-left pr-2 cursor-pointer"  (click)="goback()"></i>{{question.title}}</h2>
+        </div>
+    </div>  
+      <div class="col-12 mt-3 ">
+        <div  class="pt-3 mb-3 shadow" style="border:1px solid #975AFF; border-radius: 5px;">
+          <div class="row">
+            <div class="col-6 col-lg-3 pl-4"><h6>Subject Code</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{question.subjectCode}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Total Marks</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{question.totalMarks}}</h6></div>
+          </div>
+          <div class="row">
+            <div class="col-6 col-lg-3 pl-4"><h6>schedule Date</h6></div>
+             <div class="col-6 col-lg-3"><h6>{{question.scheduledOn}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Max Marks</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{question.maxMarks}}</h6></div>
+          </div>
+          <div class="row">
+            <div class="col-6 col-lg-3 pl-4"><h6>Duration</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{question.duration}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Total Questions</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{question.totalQuestions}}</h6></div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6 col-lg-3 pl-4"><h6>Created By</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{question.facultyName}}</h6></div>
+            <div class="col-6 col-lg-3 pl-4"><h6>Negative Marks</h6></div>
+            <div class="col-6 col-lg-3"><h6>{{question.negativeMarks== -1?'No':question.negativeMarks}}</h6></div>
+          </div>
+         </div>
+      </div> 
+      
+    <div class="col-12 mt-3" *ngIf="show=='Theory'">
+        <div style="width: 100%;" class="pl-3" >
+            <div *ngFor="let i of question.ansData; index as j;">
+            <div  class="bg-white rounded mt-2 py-2 question-mcq" style="box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 15%) !important;position:relative;"  >
+              
+              <div class="mt-2 pl-4 pr-5" style="position: relative;">
+                  <h5 class="text-dark"  style="line-height: 1.4;">
+                    <div class="d-flex">
+                      <div class="d-inline-block">Q.{{j+1}}&nbsp;&nbsp;</div>
+                      <div>{{i.question}}</div>
+                  </div>
+                  
+                  </h5>
+                  <div class="d-inline-block p-2" style="position: absolute;right: 8px;top: -5px;">
+                      <span>{{i.score}}/{{i.marks}}</span>
+                  </div>
+              </div>
+              <div class="my-3  pl-4 pr-5">
+                <div class="form-group">
+                  <div class="d-flex">
+                    <div class="d-inline-block"><h6>Ans:&nbsp;&nbsp;</h6></div>
+                    <div><h6>{{i.answer}}</h6></div>
+                </div>
+                 </div>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mt-3" *ngIf="show=='MCQ'">
+        <div style="width: 100%;" class="pl-3">
+            <div *ngFor="let i of question.ansData; let j=index;">
+            <div class="bg-white rounded mt-2 py-2" style="box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 15%) !important;position:relative;">
+              
+               
+              <div class="mt-2 pl-4 pr-5">
+                  <h5 class="text-dark"  style="line-height: 1.4;">
+                    <div class="d-flex">
+                      <div class="d-inline-block">Q.{{j+1}}&nbsp;&nbsp;</div>
+                      <div>{{i.question}}</div>
+                  </div>
+                    
+                  </h5>
+              </div>
+              <div class="my-3 mx-2 pl-4 pr-5">
+              <ul class="list-unstyled">
+                  <li class="my-1">
+                    <span style="position: absolute;left:10px;" *ngIf="i.answer=='1'"><mat-icon class="text-success">check_circle</mat-icon></span>
+                          <span style="position: absolute;left:10px;" *ngIf="i.correctOption=='1' && i.correctOption!=i.answer"><mat-icon class="text-danger">highlight_off</mat-icon></span>
+                    <div class="radio">
+                        <input type="radio" class="form-check-input"  value="{{1}}" id="{{i.option1+j}}"  [checked]="i.correctOption=='1'"  (click)="check(j,'1',i.option1)">
+                        <label  for="{{i.option1+j}}">{{i.option1}}</label >
+                    </div>
+                  </li>
+                  <li class="my-1">
+                    <span style="position: absolute;left:10px;" *ngIf="i.answer=='2'"><mat-icon class="text-success">check_circle</mat-icon></span>
+                            <span style="position: absolute;left:10px;" *ngIf="i.correctOption=='2' && i.correctOption!=i.answer"><mat-icon class="text-danger">highlight_off</mat-icon></span>
+                      <div class="radio">
+                        <input type="radio" class="form-check-input"  value="{{2}}" id="{{i.option2+j}}"  [checked]="i.correctOption=='2'" (click)="check(j,'2',i.option2)">
+                        <label for="{{i.option2+j}}">{{i.option2}}</label>
+                    </div>
+                  </li>
+                  <li class="my-1" *ngIf="i.option3!=null && i.option3!='' && i.option3!=undefined">
+                    <span style="position: absolute;left:10px;" *ngIf="i.answer=='3'"><mat-icon class="text-success">check_circle</mat-icon></span>
+                            <span style="position: absolute;left:10px;" *ngIf="i.correctOption=='3' && i.correctOption!=i.answer"><mat-icon class="text-danger">highlight_off</mat-icon></span>
+                    <div class="radio">
+                          <input type="radio" class="form-check-input"  value="{{3}}" id="{{i.option3+j}}"  [checked]="i.correctOption=='3'" (click)="check(j,'3',i.option3)">
+                          <label for="{{i.option3+j}}">{{i.option3}}</label>
+                      </div>
+                  </li>
+                  <li class="my-1"  *ngIf="i.option4!=null && i.option4!='' && i.option4!=undefined">
+                    <div class="radio">
+                      <span style="position: absolute;left:10px;" *ngIf="i.answer=='4'"><mat-icon class="text-success">check_circle</mat-icon></span>
+                            <span style="position: absolute;left:10px;" *ngIf="i.correctOption=='4' && i.correctOption!=i.answer"><mat-icon class="text-danger">highlight_off</mat-icon></span>
+                        <input type="radio"  value="{{4}}" id="{{i.option4+j}}"  [checked]="i.correctOption=='4'" (click)="check(j,'4',i.option4)">
+                        <label for="{{i.option4+j}}">{{i.option4}}</label>
+                      </div>
+                  </li>
+              </ul>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+    
