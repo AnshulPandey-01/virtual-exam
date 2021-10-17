@@ -22,6 +22,7 @@ import { FacultySearchComponent } from './page/faculty-search/faculty-search.com
 import { FacultySearchResultComponent } from './page/faculty-search-result/faculty-search-result.component';
 import {ViewPastTestComponent} from './page/view-past-test/view-past-test.component';
 import { from } from 'rxjs';
+import { NgxSpinnerModule } from 'ngx-spinner';
 const route:Routes=[
   {
     path:'test',
@@ -72,7 +73,8 @@ const route:Routes=[
     MatDatepickerModule,
     NgSelectModule,
     NgbTimepickerModule,
-    FormsModule
+    FormsModule,
+    NgxSpinnerModule
   ],
   providers: [DatePipe, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }]
 })

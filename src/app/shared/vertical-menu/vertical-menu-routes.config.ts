@@ -19,6 +19,9 @@ export const ROUTE1: RouteInfo[] = [
     {
       
       path: 'exam-portal/student/past-test', title: 'Past Test', icon: 'ft-home', class: '', badge: '', badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1', isExternalLink: false, submenu: []
+    },
+    {
+      path: 'exam-portal/student/stats', title: 'Stats', icon: 'ft-home', class: '', badge: '', badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1', isExternalLink: false, submenu: []
     }
 ];
 

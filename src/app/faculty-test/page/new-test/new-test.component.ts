@@ -5,6 +5,7 @@ import { FacultyService } from 'app/shared/services/faculty.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatStepper } from '@angular/material/stepper';
 import * as XLSX from 'xlsx';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-new-test',
@@ -35,14 +36,14 @@ export class NewTestComponent implements OnInit {
   csvobject: any = [];
   buttontype = true;
   constructor(private _formBuilder: FormBuilder, private datePipe: DatePipe, private faculty: FacultyService,
-    private location: Location, private toastr: ToastrService, private cdRef: ChangeDetectorRef) { }
+    private location: Location, private toastr: ToastrService, private cdRef: ChangeDetectorRef, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
 
     this.testform1 = this._formBuilder.group({
       title: ['', Validators.required],
       password: ['', Validators.required],
-      isSubjective: ['', Validators.required],
+      subjective: ['', Validators.required],
       scheduleOn: ['', Validators.required],
       resultOn: ['', Validators.required],
       duration: ['', Validators.required],
@@ -139,12 +140,12 @@ export class NewTestComponent implements OnInit {
       question: this._formBuilder.array([])
     });
 
-    if (this.testform1.get('isSubjective').value == 'true') {
+    if (this.testform1.get('subjective').value == 'true') {
       this.testform1.get('marks').clearValidators();
       this.testform1.get('marks').updateValueAndValidity();
       this.testform1.get('negativeMarks').setValue('0');
     }
-    else if (this.testform1.get('isSubjective').value == 'false') {
+    else if (this.testform1.get('subjective').value == 'false') {
       this.testform1.get('marks').setValidators(Validators.required);
       this.testform1.get('marks').updateValueAndValidity();
       this.questionForm = this._formBuilder.group({
@@ -156,14 +157,14 @@ export class NewTestComponent implements OnInit {
   addQuestion() {
     var a: FormArray = this.questionForm.get('question') as FormArray;
     this.total_question++;
-    if (this.testform1.get('isSubjective').value == 'true') {
+    if (this.testform1.get('subjective').value == 'true') {
       a.push(this._formBuilder.group({
         questionId: [a.length + 1, Validators.required],
         question: ['', Validators.required],
         marks: ['', Validators.required]
       }));
     }
-    else if (this.testform1.get('isSubjective').value == 'false') {
+    else if (this.testform1.get('subjective').value == 'false') {
       a.push(this._formBuilder.group({
         questionId: [a.length + 1, Validators.required],
         text: ['', Validators.required],
@@ -230,7 +231,7 @@ export class NewTestComponent implements OnInit {
       return;
     }
     this.total_mark = 0;
-    if (this.testform1.get('isSubjective').value == 'true') {
+    if (this.testform1.get('subjective').value == 'true') {
       var a = this.questionForm.get('question');
       for (let i of a.value) {
         this.total_mark += parseInt(i.marks);
@@ -242,6 +243,14 @@ export class NewTestComponent implements OnInit {
   }
 
   submit1() {
+    this.spinner.show(undefined,
+      {
+        type: 'ball-triangle-path',
+        size: 'medium',
+        bdColor: 'rgba(0, 0, 0, 0.8)',
+        color: '#fff',
+        fullScreen: true
+      });
     this.loader4=true;
     const req = this.testform1.value
     req.createdBy = sessionStorage.getItem('username');
@@ -251,7 +260,7 @@ export class NewTestComponent implements OnInit {
     req.section = req.section.toUpperCase();
     delete req.time1;
     delete req.time2;
-    if (this.testform1.get('isSubjective').value == 'true') {
+    if (this.testform1.get('subjective').value == 'true') {
       delete req.marks;
       delete req.negativeMarks;
     }
@@ -259,7 +268,7 @@ export class NewTestComponent implements OnInit {
     this.faculty.createTestDetails(req).subscribe((res: any) => {
       if (res) {
         console.log(res);
-        if (this.testform1.get('isSubjective').value == 'true' && res != 0) {
+        if (this.testform1.get('subjective').value == 'true' && res != 0) {
           var ar = this.questionForm.value.question;
           ar.map((x) => {
             x.testId = res.TestId;
@@ -267,6 +276,7 @@ export class NewTestComponent implements OnInit {
           console.log(ar);
           this.faculty.subjective(ar).subscribe((res: any) => {
             if (res) {
+              this.spinner.hide();
               this.loader4=false;
               console.log(res);
               this.toastr.success('', res.Message, {
@@ -279,6 +289,7 @@ export class NewTestComponent implements OnInit {
             }
           },
             error => {
+              this.spinner.hide();
               this.toastr.show('', 'Something went wrong', {
                 positionClass: 'toast-bottom-center', closeButton: true, "easeTime": 500
               });
@@ -286,7 +297,7 @@ export class NewTestComponent implements OnInit {
               this.loader4=false;
             });
         }
-        else if (this.testform1.get('isSubjective').value == 'false' && res != 0) {
+        else if (this.testform1.get('subjective').value == 'false' && res != 0) {
           var ar = this.questionForm.value.question;
           ar.map((x) => {
             x.testId = res.TestId;
@@ -316,6 +327,7 @@ export class NewTestComponent implements OnInit {
           console.log(ar);
           this.faculty.mcq(ar).subscribe((res: any) => {
             if (res) {
+              this.spinner.hide();
               console.log(res);
               this.loader4=false;
               this.toastr.success('', res.Message, {
@@ -328,6 +340,7 @@ export class NewTestComponent implements OnInit {
             }
           },
             error => {
+              this.spinner.hide();
               this.toastr.show('', 'Something went wrong', {
                 positionClass: 'toast-bottom-center', closeButton: true, "easeTime": 500
               });
@@ -336,6 +349,7 @@ export class NewTestComponent implements OnInit {
             });
         }
         else {
+          this.spinner.hide();
           this.loader4=false;
           this.toastr.show('', 'Something went wrong', {
             positionClass: 'toast-bottom-center', closeButton: true, "easeTime": 500
@@ -344,6 +358,7 @@ export class NewTestComponent implements OnInit {
       }
     },
       error => {
+        this.spinner.hide();
         this.loader4=false;
         console.log(error);
       });
@@ -370,7 +385,7 @@ export class NewTestComponent implements OnInit {
         let k = 0;
         var a: FormArray = this.questionForm.get('question') as FormArray;
         this.total_question = 0;
-        if (this.testform1.get('isSubjective').value == 'true') {
+        if (this.testform1.get('subjective').value == 'true') {
           for (let i of rowObject) {
             k++;
             a.push(this._formBuilder.group({
@@ -380,7 +395,7 @@ export class NewTestComponent implements OnInit {
             }));
           }
           this.total_question = k;
-        } else if (this.testform1.get('isSubjective').value == 'false') {
+        } else if (this.testform1.get('subjective').value == 'false') {
           console.log("run this");
           for (let i of rowObject) {
             k++;

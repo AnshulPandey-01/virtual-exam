@@ -42,7 +42,9 @@ import { SubjectiveComponent } from './subjective/subjective.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SpeedTestModule } from 'ng-speed-test';
-import { FacultyModule } from "./faculty/faculty.module";
+import { PreviewComponent } from './preview/preview.component';
+
+
 
 
 
@@ -56,7 +58,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent, McqComponent, SubjectiveComponent],
+  declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent, McqComponent, SubjectiveComponent, PreviewComponent],
   imports: [
     BrowserAnimationsModule,
     AppRoutingModule,

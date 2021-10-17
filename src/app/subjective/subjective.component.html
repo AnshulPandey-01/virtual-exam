@@ -10,7 +10,7 @@
       </div>
       <div>
         <button class="btn" style="background-color: #F8F9F9;">Reference</button>
-        <button class="btn btn-danger mx-3" (click)="submit()">Finish</button>
+        <button class="btn btn-danger mx-3" (click)="openModal()">Finish</button>
       </div>
     </div>
   
@@ -76,3 +76,29 @@
           
       </div>
   </div>
+
+
+  <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Test Preview</h4>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-wrap px-2 mcq_q" >
+            <div style="width: 35px;height:35px;border-radius: 50%;text-align: center;align-items: center;cursor:pointer;" class="setcolor text-white m-2" *ngFor="let i of mcq;let j=index;"    [ngClass]="{'bg-primary': mcq[j].visit==true && mcq[j].answer!=null}"  [class.bgcolor]="mcq[j].show == true && mcq[j].answer==null"  [class.increase]="mcq[j].show == true" (click)="setquestion(j)">
+              <div style="padding:6px;">
+                  <span>{{j+1}}</span>
+              </div>
+            </div>
+        </div>
+      
+        </div>
+        <div class="modal-footer d-block text-center">
+          <button type="button" class="btn btn-danger" (click)="onCloseHandled()">back</button>
+          <button type="button" class="btn btn-primary ml-3" (click)="submit()">Submit</button>
+        </div>
+      </div>
+  
+    </div>
+    </div>

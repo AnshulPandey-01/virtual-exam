@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CountdownComponent } from 'ngx-countdown';
 import { SpeedTestService } from 'ng-speed-test';
+import arrayShuffle from 'array-shuffle';
 declare var $;
 @Component({
   selector: 'app-mcq',
@@ -21,6 +22,8 @@ export class McqComponent implements OnInit ,OnDestroy{
   statusactive;
   @ViewChild('cd', { static: false }) private countdown: CountdownComponent;
   mcq:any;
+  coutSwitchTab=0;
+  display = "none";
   constructor(private student:StudentService,private cdr:ChangeDetectorRef,private toastr:ToastrService,
     private router:Router,private speedTestService:SpeedTestService) {   
   }
@@ -40,6 +43,10 @@ export class McqComponent implements OnInit ,OnDestroy{
       return ;
     }
   }
+  @HostListener('keydown', ['$event']) keyInput(e: KeyboardEvent) {
+    e.preventDefault();
+    console.log(e);
+  } 
   @HostListener('paste', ['$event']) blockPaste(e: KeyboardEvent) {
     e.preventDefault();
   }
@@ -65,20 +72,34 @@ export class McqComponent implements OnInit ,OnDestroy{
    this.fullscreen();
    this.offline();
    this.active();
+  
+  }
+ 
+  openModal() {
+    this.display = "block";
+  }
+  onCloseHandled() {
+    this.display = "none";
   }
 
   active(){
     this.statusactive=setInterval(()=>{
     if(!document.hasFocus()){
-      swal.fire({
+     swal.fire({
         title: "Do not switch a Tab",
         customClass: {
           confirmButton: 'btn btn-primary'
         },
         buttonsStyling: false,
       })
+      this.coutSwitchTab++;
     }
-    
+    if(this.coutSwitchTab>5){
+      document.exitFullscreen();
+      setTimeout(()=>{
+        this.router.navigate(['exam-portal/student/test']);
+      },1000);
+    }
     },1000);
   }
 
@@ -145,6 +166,7 @@ export class McqComponent implements OnInit ,OnDestroy{
     });
    }
 
+
   full(){
     if (this.elem.requestFullscreen) {
       this.elem.requestFullscreen();
@@ -173,7 +195,7 @@ gettestquestion(){
       return v;
       });
       console.log(res);
-      this.mcq=res;
+      this.mcq=arrayShuffle(res);
       this.mcq[0].show=true;
       this.cdr.detectChanges();
     }

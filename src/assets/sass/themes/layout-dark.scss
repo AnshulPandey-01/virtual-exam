@@ -37,9 +37,10 @@
 
 @mixin dark-style() {
   @if $dark-style {
-    html body.layout-dark:not(.layout-transparent) & {
+  /*  html body.layout-dark:not(.layout-transparent) & {
       @content;
     }
+    */
   }
 
   @else {

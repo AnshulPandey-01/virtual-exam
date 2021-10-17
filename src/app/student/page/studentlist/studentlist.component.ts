@@ -61,7 +61,7 @@ export class StudentlistComponent implements OnInit {
       this.student.deletestudent(i).subscribe((res:any)=>{
           if(res){
             this.getStudentList();
-            this.toastr.success('', res[0], {
+            this.toastr.success('','Deleted Successfully', {
               positionClass: 'toast-bottom-center', closeButton: true, "easeTime": 500
             });
           }

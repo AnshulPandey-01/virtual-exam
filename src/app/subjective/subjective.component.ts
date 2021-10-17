@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CountdownComponent } from 'ngx-countdown';
 import { SpeedTestService } from 'ng-speed-test';
+import arrayShuffle from 'array-shuffle';
 declare var $;
 @Component({
   selector: 'app-subjective',
@@ -21,6 +22,8 @@ export class SubjectiveComponent implements OnInit,OnDestroy {
 elem;
 statusactive;
 status = "runing";
+coutSwitchTab=0;
+display = "none";
 constructor(private student: StudentService, private cdr: ChangeDetectorRef, private toastr: ToastrService,
    private router: Router,private fb:FormBuilder,private speedTestService:SpeedTestService) {
 
@@ -58,6 +61,7 @@ ngOnInit(): void {
 active(){
   this.statusactive=setInterval(()=>{
   if(!document.hasFocus()){
+    this.coutSwitchTab++;
     swal.fire({
       title: "Do not switch a Tab",
       customClass: {
@@ -65,6 +69,12 @@ active(){
       },
       buttonsStyling: false,
     })
+  }
+  if(this.coutSwitchTab>5){
+    document.exitFullscreen();
+    setTimeout(()=>{
+      this.router.navigate(['exam-portal/student/test']);
+    },1000);
   }
 },1000);
 
@@ -176,7 +186,7 @@ gettestquestion() {
         return v;
       });
       console.log(res);
-      this.mcq = res;
+      this.mcq =arrayShuffle(res);
       this.mcq[0].show = true;
       this.initform();
     }
@@ -262,6 +272,14 @@ ngOnDestroy() {
   sessionStorage.removeItem('testId');
   sessionStorage.removeItem('time');
 }
+
+openModal() {
+  this.display = "block";
+}
+onCloseHandled() {
+  this.display = "none";
+}
+
 handleEvent(event){
   
     console.log(event);
@@ -276,7 +294,7 @@ handleEvent(event){
       }
       );
       this.submit();
-     
+
     }
 }
 }

@@ -11,6 +11,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ViewPastTestComponent } from './page/view-past-test/view-past-test.component';
+import { StaticsticComponent } from './page/staticstic/staticstic.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 const route:Routes=[
   {
     path:'test',
@@ -23,11 +28,15 @@ const route:Routes=[
   {
     path:'past-test/:id',
     component:ViewPastTestComponent
+  },
+  {
+    path:'stats',
+    component:StaticsticComponent
   }
 ]
 
 @NgModule({
-  declarations: [TestComponent, PastTestComponent, ViewPastTestComponent],
+  declarations: [TestComponent, PastTestComponent, ViewPastTestComponent,StaticsticComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(route),
@@ -38,7 +47,11 @@ const route:Routes=[
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    NgApexchartsModule,
+    NgSelectModule,
+    NativeDateModule,
+    MatDatepickerModule
   ]
 })
 export class StudentTestModule { }

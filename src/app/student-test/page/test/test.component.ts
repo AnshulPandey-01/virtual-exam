@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StudentService } from 'app/shared/services/student.service';
@@ -12,7 +12,7 @@ declare var $;
 export class TestComponent implements OnInit {
   id = sessionStorage.getItem('roll');
   upcoming_test = [];
-  constructor(private student: StudentService, private router: Router) { }
+  constructor(private student: StudentService, private router: Router, private cdr:ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getStudenttest();
@@ -22,14 +22,15 @@ export class TestComponent implements OnInit {
     this.student.getStudentTest(this.id).subscribe((res: any) => {
       if (res) {
         res.map((x)=>{
-          if(x.isSubjective){
-            x.isSubjective="Theory";
+          if(x.subjective){
+            x.subjective="Theory";
           }
           else{
-            x.isSubjective="MCQ"
+            x.subjective="MCQ"
           }
         })
         this.upcoming_test = res;
+        this.cdr.detectChanges();
       }
     },
       error => {

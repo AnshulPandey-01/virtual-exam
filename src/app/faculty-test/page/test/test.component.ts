@@ -32,11 +32,11 @@ export class TestComponent implements OnInit,AfterViewInit {
       if (res) {
         console.log(res);
         res.map((x)=>{
-        if(x.isSubjective==false){
-          x.isSubjective='MCQ';
+        if(x.subjective==false){
+          x.subjective='MCQ';
         }
         else{
-          x.isSubjective='Theory';
+          x.subjective='Theory';
         }
         })
         this.dataSource = res;

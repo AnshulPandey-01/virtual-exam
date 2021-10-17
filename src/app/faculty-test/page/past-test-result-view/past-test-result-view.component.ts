@@ -13,32 +13,7 @@ export class PastTestResultViewComponent implements OnInit {
   testid;
   roll;
   test_type = "Theory";
-  question: any; /* = {
-    "isEditable": true,
-    "name": "Rajendra Chourasiya",
-    "rollNo": "0818CS181101",
-    "title": "Practice",
-    "isSubjective": true,
-    "totalMarks": 0,
-    "subjectCode": "CS-602",
-    "ansList": [
-      {
-        "questionId": "1001-1",
-        "score": "",
-        "answer": "Maven is a project management tool.",
-        "marks": 5,
-        "question": "Explain what is Maven? How does it work?"
-      },
-      {
-        "questionId": "1001-2",
-        "score": "",
-        "answer": "Project Object Model is an XML file which holds the information about the project and configuration details used to build a project by Maven.",
-        "marks": 5,
-        "question": "Explain what is POM?"
-      }
-    ]
-  }
-  */
+  question: any;
   constructor(private activeRoute: ActivatedRoute, private location: Location,
     private faculty: FacultyService, private toastr: ToastrService) { }
 
@@ -68,7 +43,7 @@ export class PastTestResultViewComponent implements OnInit {
       if (res) {
         console.log(res);
         this.question = res;
-        if (this.question.isSubjective) {
+        if (this.question.subjective) {
           this.test_type = 'Theory';
           res.ansList.map((x) => {
             if (x.score == -1) {

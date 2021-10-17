@@ -32,11 +32,11 @@ export class PastTestComponent implements OnInit {
         var r=x.resultOn.split(" ");
         x.date=r[0];
         x.time=r[1];
-        if(x.isSubjective){
-          x.isSubjective="Theory";
+        if(x.subjective){
+          x.subjective="Theory";
         }
         else{
-          x.isSubjective="MCQ"
+          x.subjective="MCQ"
         }
       })
        this.dataSource=res;

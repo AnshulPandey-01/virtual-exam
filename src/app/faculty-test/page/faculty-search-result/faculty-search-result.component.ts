@@ -47,11 +47,11 @@ export class FacultySearchResultComponent implements OnInit {
           var r = x.resultOn.split(" ");
           x.date = r[0];
           x.time = r[1];
-          if (x.isSubjective) {
-            x.isSubjective = "Theory";
+          if (x.subjective) {
+            x.subjective = "Theory";
           }
           else {
-            x.isSubjective = "MCQ"
+            x.subjective = "MCQ"
           }
         })
         this.dataSource = res;
@@ -79,7 +79,7 @@ export class FacultySearchResultComponent implements OnInit {
     else{
       this.student.checkPastReasult(v.testId).subscribe((res:any)=>{
         if(res[0]==true){
-          sessionStorage.setItem('type',v.isSubjective);
+          sessionStorage.setItem('type',v.subjective);
           this.route.navigate(['exam-portal/faculty/past-test-view',v.testId,this.id])
         }
         else{
@@ -91,5 +91,9 @@ export class FacultySearchResultComponent implements OnInit {
         console.log(error);
       });
     }
+  }
+  goStats(){
+    localStorage.setItem('roll',this.id);
+    this.route.navigate(['exam-portal/student/stats']);
   }
 }

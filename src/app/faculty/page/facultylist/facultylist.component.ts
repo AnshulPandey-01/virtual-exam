@@ -45,7 +45,7 @@ export class FacultylistComponent implements OnInit, AfterViewInit {
   setstatus(a,b){
    //console.log(a);
    //console.log(b);
-   const req={email :b.email,isAllowed:a.checked}
+   const req={email :b.email,allowed:a.checked}
    this.faculty.facultystatuschange(req).subscribe((res:any)=>{
     if(res){
       console.log(res);

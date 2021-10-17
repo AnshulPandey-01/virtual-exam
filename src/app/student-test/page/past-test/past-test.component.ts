@@ -35,11 +35,11 @@ export class PastTestComponent implements OnInit {
         var r=x.resultOn.split(" ");
         x.date=r[0];
         x.time=r[1];
-        if(x.isSubjective){
-          x.isSubjective="Theory";
+        if(x.subjective){
+          x.subjective="Theory";
         }
         else{
-          x.isSubjective="MCQ"
+          x.subjective="MCQ"
         }
       })
        this.dataSource=res;
@@ -58,7 +58,7 @@ export class PastTestComponent implements OnInit {
     else{
       this.student.checkPastReasult(v.testId).subscribe((res:any)=>{
         if(res[0]==true){
-          sessionStorage.setItem('type',v.isSubjective);
+          sessionStorage.setItem('type',v.subjective);
           this.route.navigate(['exam-portal/student/past-test',v.testId]);
         }
         else{
