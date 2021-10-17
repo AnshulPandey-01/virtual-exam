@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TestComponent } from './page/test/test.component';
 import { RouterModule, Routes } from '@angular/router';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -52,6 +52,7 @@ const route:Routes=[
     NgSelectModule,
     NativeDateModule,
     MatDatepickerModule
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class StudentTestModule { }

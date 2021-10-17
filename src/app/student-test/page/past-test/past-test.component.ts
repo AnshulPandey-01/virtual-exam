@@ -51,7 +51,7 @@ export class PastTestComponent implements OnInit {
     })
   }
   pastTest(v,i){
-    if(!v.isPresent){
+    if(!v.present){
     $('#view'+i).html('');
     $('#view'+i).html('<span class="text-danger font-weight-bold">Absent</span>');
     }

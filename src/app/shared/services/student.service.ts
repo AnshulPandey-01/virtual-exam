@@ -61,7 +61,7 @@ getStaticsticData(data){
     for(let i in data){
         param=param.append(i,data[i]);
     }
-    return this.http.get(environment.API_URL+'student/tests/stas',{params:param});
+    return this.http.get(environment.API_URL+'student/tests/stats',{params:param});
 }
 
 }

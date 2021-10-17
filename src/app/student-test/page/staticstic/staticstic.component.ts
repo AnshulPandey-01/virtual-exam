@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from 'app/shared/services/student.service';
@@ -17,6 +18,7 @@ import {
   ApexGrid,
   ApexTitleSubtitle
 } from "ng-apexcharts";
+import { ToastrService } from 'ngx-toastr';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -54,7 +56,7 @@ export class StaticsticComponent implements OnInit {
   public chartOptions: Partial<ChartOptions>;
   public chartOptions1: Partial<ChartOptions1>;
   staticbool=false;
-  constructor(private fb:FormBuilder,private studentService:StudentService) {
+  constructor(private fb:FormBuilder, private studentService:StudentService, private datePipe: DatePipe, public toastr: ToastrService) {
     this.chartOptions = {
       series: [
         {
@@ -193,29 +195,37 @@ export class StaticsticComponent implements OnInit {
    let obj=Object.assign({},this.filter.value,{rollNo:sessionStorage.getItem('roll')});
    console.log(obj);
    obj.subject=obj.subject.toUpperCase();
+   obj.from = this.datePipe.transform(obj.from, 'yyyy-dd-MM') + " 00:00:00";
+   obj.to = this.datePipe.transform(obj.to, 'yyyy-dd-MM') + " 23:59:59";
    this.studentService.getStaticsticData(obj).subscribe((res:any)=>{
      if(res){
+      if(res.averagePercent.length==0 || res.userPercent.length==0){
+        this.toastr.show('', 'Data not available', {
+          positionClass: 'toast-bottom-center', closeButton: true, "easeTime": 500
+        });
+         return ;
+       }
        this.staticbool=true;
        console.log(res);
        this.chartOptions.series=[
         {
           name: "Average",
-          data: res.averageMarks
+          data: res.averagePercent
         },
         {
           name: "You",
-          data: res.userMarks
+          data: res.userPercent
         },
       ];
       this.chartOptions.xaxis.categories=res.titles;
       this.chartOptions1.series=[
         {
           name: "Average",
-          data: res.averageMarks
+          data: res.averagePercent
         },
         {
           name: "You",
-          data: res.userMarks
+          data: res.userPercent
         },
       ];
       this.chartOptions1.xaxis.categories=res.titles;
